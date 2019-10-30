@@ -12,10 +12,10 @@
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     </ItemGroup>
-    <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+    <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish" Condition="'$(Docker)' != ''">
         <Copy SourceFiles="Dockerfile" DestinationFolder="$(PublishDir)" />
-        <Exec WorkingDirectory="$(PublishDir)" Command="docker build -t warrenxxx/dotnet:ping ." />
-        <Exec WorkingDirectory="$(PublishDir)" Command="docker push warrenxxx/dotnet:ping" />
+        <Copy SourceFiles="integration_vibe-ems_app.pfx" DestinationFolder="$(PublishDir)" />
+        <Exec WorkingDirectory="$(PublishDir)" Command="docker build -t viberegistry.azurecr.io/$(TargetName.ToLower()):$(Docker)-ping ." />
+        <Exec WorkingDirectory="$(PublishDir)" Command="docker push viberegistry.azurecr.io/$(TargetName.ToLower()):$(Docker)-ping" />
     </Target>
-
 </Project>
