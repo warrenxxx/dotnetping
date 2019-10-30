@@ -34,7 +34,8 @@ namespace TestPing
         {
             IP = Configuration.GetValue<string>("ip");
             Timer oTimer = new Timer();
-            oTimer.Interval = 1000;
+            int time = Configuration.GetValue<int>("time");
+            oTimer.Interval =time;
 
             oTimer.Elapsed += EventoIntervalo;
 
