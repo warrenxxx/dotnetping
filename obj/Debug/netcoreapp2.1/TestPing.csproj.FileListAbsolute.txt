@@ -1,0 +1,14 @@
+C:\Users\warren\RiderProjects\TestPing\TestPing\bin\Debug\netcoreapp2.1\TestPing.deps.json
+C:\Users\warren\RiderProjects\TestPing\TestPing\bin\Debug\netcoreapp2.1\TestPing.runtimeconfig.json
+C:\Users\warren\RiderProjects\TestPing\TestPing\bin\Debug\netcoreapp2.1\TestPing.runtimeconfig.dev.json
+C:\Users\warren\RiderProjects\TestPing\TestPing\bin\Debug\netcoreapp2.1\TestPing.dll
+C:\Users\warren\RiderProjects\TestPing\TestPing\bin\Debug\netcoreapp2.1\TestPing.pdb
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.csprojAssemblyReference.cache
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.csproj.CoreCompileInputs.cache
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.RazorAssemblyInfo.cache
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.RazorAssemblyInfo.cs
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.AssemblyInfoInputs.cache
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.AssemblyInfo.cs
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.RazorTargetAssemblyInfo.cache
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.dll
+C:\Users\warren\RiderProjects\TestPing\TestPing\obj\Debug\netcoreapp2.1\TestPing.pdb
