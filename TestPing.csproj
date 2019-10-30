@@ -14,7 +14,6 @@
     </ItemGroup>
     <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish" Condition="'$(Docker)' != ''">
         <Copy SourceFiles="Dockerfile" DestinationFolder="$(PublishDir)" />
-        <Copy SourceFiles="integration_vibe-ems_app.pfx" DestinationFolder="$(PublishDir)" />
         <Exec WorkingDirectory="$(PublishDir)" Command="docker build -t viberegistry.azurecr.io/$(TargetName.ToLower()):$(Docker)-ping ." />
         <Exec WorkingDirectory="$(PublishDir)" Command="docker push viberegistry.azurecr.io/$(TargetName.ToLower()):$(Docker)-ping" />
     </Target>
