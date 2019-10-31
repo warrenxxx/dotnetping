@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Timers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using TestPing.Controllers;
 
 namespace TestPing
@@ -15,7 +18,8 @@ namespace TestPing
     {
         public static List<valor> AllList = new List<valor>();
         public static string IP;
-
+        public MongoClient MongoClient;
+        public IMongoDatabase IDatabase;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +36,11 @@ namespace TestPing
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
+            MongoClient = new MongoClient(
+                "mongodb://root:Provista_123@13.77.174.235:27017"
+            );
+            IDatabase = MongoClient.GetDatabase("test");
             IP = Configuration.GetValue<string>("ip");
             Timer oTimer = new Timer();
             int time = Configuration.GetValue<int>("time");
@@ -56,10 +65,21 @@ namespace TestPing
 
         private void EventoIntervalo(object sender, ElapsedEventArgs e)
         {
-            AllList.Add(ExecuteCommand("ping " + IP));
+            try
+            {
+                var temp = ExecuteCommand("ping " + IP);    
+                var collection = IDatabase.GetCollection<BsonDocument>("status");
+                collection.InsertOne(temp);
+            }
+            catch (Exception ee)
+            {
+                Console.WriteLine(ee.Message);
+            }
+
+
         }
 
-        static valor ExecuteCommand(string _Command)
+        static BsonDocument ExecuteCommand(string _Command)
         {
             try
             {
@@ -73,33 +93,48 @@ namespace TestPing
                 proc.Start();
                 proc.StandardOutput.ReadLine();
                 proc.StandardOutput.ReadLine();
+              
+                
                 string result = proc.StandardOutput.ReadLine();
-                valor v = new valor()
+                
+                var document = new BsonDocument
                 {
-                    date = DateTime.Now,
-                    name = result,
+                    { "date", DateTime.Now },
+                    { "name", result },
+                    { "count", 1 },
                 };
+
                 if (result.Contains(IP))
                 {
-                    v.status = "ok";
+                    document = new BsonDocument
+                    {
+                        { "date", DateTime.Now },
+                        { "name", result },
+                        { "status", "ok" },
+                    };
                 }
                 else
                 {
-                    v.status = "fail";
+                    document = new BsonDocument
+                    {
+                        { "date", DateTime.Now },
+                        { "name", result },
+                        { "status", "fail" },
+                    };
                 }
 
-                return v;
+                return document;
             }
             catch (Exception e)
             {
-                valor v = new valor()
+                   
+                var document = new BsonDocument
                 {
-                    date = DateTime.Now,
-                    name = "no",
+                    { "date", DateTime.Now },
+                    { "name", "fail" },
+                    { "status", "fail" },
                 };
-
-                v.status = "fail";
-                return v;
+                return document;
             }
         }
     }
